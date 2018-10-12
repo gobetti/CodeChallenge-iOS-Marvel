@@ -1,0 +1,13 @@
+language: swift
+osx_image: xcode10
+
+before_install:
+  - bundle install
+  - bundle exec pod repo update
+  - git submodule update --init --recursive
+
+script:
+  - set -o pipefail && xcodebuild -scheme Marvel -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone XR,OS=12.0' build test | bundle exec xcpretty
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
