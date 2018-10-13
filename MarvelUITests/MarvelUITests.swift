@@ -8,10 +8,18 @@
 import XCTest
 
 class MarvelUITests: XCTestCase {
+    var app: XCUIApplication!
+
     override func setUp() {
+        super.setUp()
+
         continueAfterFailure = false
-        XCUIApplication().launch()
+        app = XCUIApplication()
+        app.launchArguments.append("--uitesting")
+        app.launch()
     }
 
-    func testExample() {}
+    func testAnyCellIsCreated() {
+        XCTAssertTrue(app.collectionViews.cells.firstMatch.exists)
+    }
 }
