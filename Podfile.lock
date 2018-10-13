@@ -1,16 +1,36 @@
 PODS:
+  - RxCocoa (4.3.1):
+    - RxSwift (~> 4.0)
+  - RxCocoaNetworking (0.2.2):
+    - RxCocoa (~> 4.3)
+    - RxCocoaNetworking/Core (= 0.2.2)
+  - RxCocoaNetworking/Core (0.2.2):
+    - RxCocoa (~> 4.3)
+  - RxSwift (4.3.1)
+  - RxTest (4.3.1):
+    - RxSwift (~> 4.0)
   - SwiftLint (0.27.0)
 
 DEPENDENCIES:
+  - RxCocoaNetworking
+  - RxTest
   - SwiftLint
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - RxCocoa
+    - RxCocoaNetworking
+    - RxSwift
+    - RxTest
     - SwiftLint
 
 SPEC CHECKSUMS:
+  RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
+  RxCocoaNetworking: 9050c080ec4946faa0da9740fe8b445c53c7a16f
+  RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
+  RxTest: ea97a208826906f3904c0debdd09575ebcbfe216
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
 
-PODFILE CHECKSUM: ae820c49664c69992369223362c53b58783b9e6f
+PODFILE CHECKSUM: 3c7e23f18819f45fa6ee0bea87cb891351c55102
 
 COCOAPODS: 1.5.3
