@@ -3,6 +3,7 @@ use_frameworks!
 
 target 'Marvel' do
   pod 'RxCocoaNetworking'
+  pod 'SwiftHash'
   pod 'SwiftLint'
 
   target 'MarvelTests' do

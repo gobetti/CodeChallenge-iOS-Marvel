@@ -8,4 +8,4 @@ Run `pod install` and launch `Marvel.xcworkspace`
 
 ## Run instructions
 
-Replace in [`Marvel/API/MarvelApi.swift`](https://github.com/gobetti/CodeChallenge-iOS-Marvel/blob/master/Marvel/API/MarvelApi.swift#L14) the value of the constant `apiKey` by a valid Marvel API key.
+Replace in [`Marvel/API/MarvelApiAuthorization.swift`](https://github.com/gobetti/CodeChallenge-iOS-Marvel/blob/master/Marvel/API/MarvelApiAuthorization.swift#L13-L14) the value of the constants `publicAPIKey` and `privateAPIKey` by valid Marvel API keys.

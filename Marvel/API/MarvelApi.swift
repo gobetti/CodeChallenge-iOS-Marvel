@@ -10,8 +10,6 @@ import RxCocoaNetworking
 
 enum MarvelApi {
     case characters
-
-    static let apiKey = "<REPLACE ME>"
 }
 
 extension MarvelApi: ProductionTargetType {
@@ -31,11 +29,11 @@ extension MarvelApi: ProductionTargetType {
     }
 
     var task: Task {
-        let defaultParameters = ["apikey": MarvelApi.apiKey]
+        let authParameters = MarvelApiAuthorization.parameters
 
         switch self {
         case .characters:
-            return Task(parameters: defaultParameters)
+            return Task(parameters: authParameters)
         }
     }
 
