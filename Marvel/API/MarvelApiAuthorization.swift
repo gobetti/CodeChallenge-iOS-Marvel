@@ -17,14 +17,15 @@ enum MarvelApiAuthorization {
         return Date().timeIntervalSinceReferenceDate.description
     }
 
-    private static var hash: String {
+    private static func hash(timestamp: String) -> String {
         return MD5(timestamp + MarvelApiAuthorization.privateAPIKey + MarvelApiAuthorization.publicAPIKey)
             .lowercased()
     }
 
     static var parameters: [String: String] {
+        let timestamp = self.timestamp
         return ["apikey": MarvelApiAuthorization.publicAPIKey,
                 "ts": timestamp,
-                "hash": hash]
+                "hash": hash(timestamp: timestamp)]
     }
 }
