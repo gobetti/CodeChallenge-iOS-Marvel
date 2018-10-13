@@ -10,6 +10,8 @@ import RxSwift
 import UIKit
 
 final class CharactersListViewController: UIViewController {
+    typealias OnCharacterSelected = (Character) -> Void
+
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -21,9 +23,14 @@ final class CharactersListViewController: UIViewController {
 
     private let viewModel: CharactersListViewModel
 
-    init(viewModel: CharactersListViewModel) {
+    init(viewModel: CharactersListViewModel,
+         onCharacterSelected: @escaping OnCharacterSelected) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+
+        collectionView.rx.modelSelected(Character.self)
+            .bind(onNext: onCharacterSelected)
+            .disposed(by: disposeBag)
     }
 
     @available(*, unavailable)
