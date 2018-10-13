@@ -31,7 +31,7 @@ class MarvelApiTests: XCTestCase {
     override func setUp() {
         super.setUp()
         disposeBag = DisposeBag()
-        scheduler = TestScheduler(initialClock: 0, simulateProcessingDelay: false)
+        scheduler = TestScheduler(initialClock: initialTime, simulateProcessingDelay: false)
     }
 
     func testCharactersDecodingSucceeds() {

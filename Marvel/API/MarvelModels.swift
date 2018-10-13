@@ -23,7 +23,7 @@ struct CharacterDataContainer: Codable {
     let results: [Character]?
 }
 
-struct Character: Codable {
+struct Character: Codable, Equatable {
     let id: Int?
     let name: String?
     let description: String?
@@ -40,6 +40,10 @@ struct Character: Codable {
         $0.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         return $0
     }(DateFormatter())
+
+    static func == (lhs: Character, rhs: Character) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
 
 struct ComicList: Codable {
