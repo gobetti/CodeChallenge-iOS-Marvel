@@ -72,6 +72,7 @@ struct StorySummary: Codable {
 }
 
 enum StoryType: String, Codable {
+    case backCovers = "backcovers"
     case cover
     case empty = ""
     case interiorStory
