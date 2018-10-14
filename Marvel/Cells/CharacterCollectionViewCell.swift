@@ -29,5 +29,6 @@ final class CharacterCollectionViewCell: UICollectionViewCell {
 
     private func commonInit() {
         contentView.addFullSubview(nameLabel)
+        contentView.backgroundColor = .yellow
     }
 }
