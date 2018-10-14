@@ -107,32 +107,32 @@
             {
               "resourceURI": "http://gateway.marvel.com/v1/public/stories/19948",
               "name": "The 3-D Man!",
-              "type": "interiorStory"
+              "type": "ad"
             },
             {
               "resourceURI": "http://gateway.marvel.com/v1/public/stories/19949",
               "name": "Cover #19949",
-              "type": "cover"
+              "type": "text article"
             },
             {
               "resourceURI": "http://gateway.marvel.com/v1/public/stories/19950",
               "name": "The Devil's Music!",
-              "type": "interiorStory"
+              "type": "recap"
             },
             {
               "resourceURI": "http://gateway.marvel.com/v1/public/stories/19951",
               "name": "Cover #19951",
-              "type": "cover"
+              "type": "profile"
             },
             {
               "resourceURI": "http://gateway.marvel.com/v1/public/stories/19952",
               "name": "Code-Name:  The Cold Warrior!",
-              "type": "interiorStory"
+              "type": "pin-up"
             },
             {
               "resourceURI": "http://gateway.marvel.com/v1/public/stories/47184",
               "name": "AVENGERS: THE INITIATIVE (2007) #14",
-              "type": "cover"
+              "type": "mystery story"
             },
             {
               "resourceURI": "http://gateway.marvel.com/v1/public/stories/47185",
@@ -235,7 +235,7 @@
         "modified": "2013-09-18T15:54:04-0400",
         "thumbnail": {
           "path": "http://i.annihil.us/u/prod/marvel/i/mg/3/20/5232158de5b16",
-          "extension": "jpg"
+          "extension": "png"
         },
         "resourceURI": "http://gateway.marvel.com/v1/public/characters/1017100",
         "comics": {

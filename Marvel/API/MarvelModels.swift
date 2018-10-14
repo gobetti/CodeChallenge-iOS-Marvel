@@ -68,15 +68,7 @@ struct StoryList: Codable {
 struct StorySummary: Codable {
     let resourceURI: String?
     let name: String?
-    let type: StoryType?
-}
-
-enum StoryType: String, Codable {
-    case backCovers = "backcovers"
-    case cover
-    case empty = ""
-    case interiorStory
-    case pinUp = "pinup"
+    let type: String?
 }
 
 struct EventList: Codable {
@@ -111,6 +103,7 @@ struct Image: Codable {
 enum ImageExtension: String, Codable {
     case gif
     case jpg
+    case png
 }
 
 struct MarvelURL: Codable {
