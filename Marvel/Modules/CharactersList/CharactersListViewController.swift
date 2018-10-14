@@ -59,9 +59,12 @@ final class CharactersListViewController: UIViewController {
 
         collectionView.rx.setDelegate(self).disposed(by: disposeBag)
 
-        let pageRequester = collectionView.rx.willDisplayCell
-            .filter { _, indexPath in
-                indexPath.item == self.collectionView.numberOfItems(inSection: 0) - 1
+        let pageRequester = collectionView.rx.contentOffset
+            .filter { [collectionView] in
+                let height = collectionView.frame.height
+                let bottomPosition = $0.y + height
+                // request next page if the user is half-way to the very bottom of the list:
+                return collectionView.contentSize.height - bottomPosition < height / 2
             }.map { _ in }
 
         viewModel.characters(pageRequester: pageRequester)
