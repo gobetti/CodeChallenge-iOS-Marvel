@@ -9,11 +9,15 @@ import Foundation
 import UIKit
 
 final class CharacterDetailsViewController: UIViewController {
-    private let nameLabel = UILabel()
+    private let nameLabel: UILabel = {
+        $0.textColor = ColorPalette.text
+        return $0
+    }(UILabel())
 
     init(character: Character) {
         nameLabel.text = character.name
         super.init(nibName: nil, bundle: nil)
+        title = character.name?.uppercased()
     }
 
     @available(*, unavailable)
@@ -24,7 +28,7 @@ final class CharacterDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.accessibilityIdentifier = "detailsView" // UI Test
-        view.backgroundColor = .white
+        view.backgroundColor = ColorPalette.background
         view.addFullSubview(nameLabel)
     }
 }

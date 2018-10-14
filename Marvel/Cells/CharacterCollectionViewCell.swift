@@ -15,7 +15,10 @@ final class CharacterCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    private let nameLabel = UILabel()
+    private let nameLabel: UILabel = {
+        $0.textColor = ColorPalette.text
+        return $0
+    }(UILabel())
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -29,6 +32,16 @@ final class CharacterCollectionViewCell: UICollectionViewCell {
 
     private func commonInit() {
         contentView.addFullSubview(nameLabel)
-        contentView.backgroundColor = .yellow
+        
+        let backgroundColor: UIColor
+        switch arc4random_uniform(3) {
+        case 0:
+            backgroundColor = ColorPalette.secondaryLight
+        case 1:
+            backgroundColor = ColorPalette.secondaryDark
+        default:
+            backgroundColor = ColorPalette.secondary
+        }
+        contentView.backgroundColor = backgroundColor
     }
 }

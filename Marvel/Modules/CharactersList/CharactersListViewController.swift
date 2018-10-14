@@ -54,7 +54,8 @@ final class CharactersListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        title = "MARVEL"
+        view.backgroundColor = ColorPalette.background
         view.addFullSubview(collectionView)
 
         collectionView.rx.setDelegate(self).disposed(by: disposeBag)
