@@ -17,8 +17,8 @@ struct MarvelService {
         provider = Provider(stubBehavior: stubBehavior, scheduler: scheduler)
     }
 
-    func characters() -> Single<[Character]> {
-        return provider.request(.characters)
+    func characters(offset: Int = 0) -> Single<[Character]> {
+        return provider.request(.characters(offset: offset))
             .mapToCharacterDataWrapper()
             .map { characterDataWrapper -> [Character] in
                 guard let characters = characterDataWrapper.data?.results else { return [] }

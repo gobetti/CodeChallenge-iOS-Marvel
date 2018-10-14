@@ -59,7 +59,12 @@ final class CharactersListViewController: UIViewController {
 
         collectionView.rx.setDelegate(self).disposed(by: disposeBag)
 
-        viewModel.characters()
+        let pageRequester = collectionView.rx.willDisplayCell
+            .filter { _, indexPath in
+                indexPath.item == self.collectionView.numberOfItems(inSection: 0) - 1
+            }.map { _ in }
+
+        viewModel.characters(pageRequester: pageRequester)
             .drive(collectionView.rx.items(cellType: CharacterCollectionViewCell.self)) { _, character, cell in
                 cell.name = character.name
             }.disposed(by: disposeBag)

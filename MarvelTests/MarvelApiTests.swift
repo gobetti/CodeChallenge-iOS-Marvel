@@ -13,13 +13,23 @@ import XCTest
 
 extension MarvelApi: TargetType {
     public var sampleData: Data {
-        let bundle = Bundle(for: MarvelApiTests.self)
-
         switch self {
-        case .characters:
-            let jsonFileURL = bundle.url(forResource: "characters_sample", withExtension: "json")!
+        case .characters(let offset):
+            let jsonFileName: String
+            if offset == 0 {
+                jsonFileName = "characters_sample"
+            } else {
+                jsonFileName = "characters_offset20_sample"
+            }
+
+            let jsonFileURL = urlForJsonFile(name: jsonFileName)
             return try! Data(contentsOf: jsonFileURL)
         }
+    }
+
+    private func urlForJsonFile(name: String) -> URL {
+        let bundle = Bundle(for: MarvelApiTests.self)
+        return bundle.url(forResource: name, withExtension: "json")!
     }
 }
 

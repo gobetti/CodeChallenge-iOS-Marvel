@@ -9,7 +9,7 @@ import Foundation
 import RxCocoaNetworking
 
 enum MarvelApi {
-    case characters
+    case characters(offset: Int)
 }
 
 extension MarvelApi: ProductionTargetType {
@@ -32,8 +32,9 @@ extension MarvelApi: ProductionTargetType {
         let authParameters = MarvelApiAuthorization.parameters
 
         switch self {
-        case .characters:
-            return Task(parameters: authParameters)
+        case .characters(let offset):
+            let parameters = ["offset": "\(offset)"]
+            return Task(parameters: authParameters.merging(parameters) { _, new in new })
         }
     }
 

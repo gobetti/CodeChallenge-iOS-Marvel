@@ -35,7 +35,7 @@ class CharactersListViewModelTests: XCTestCase {
         let results = scheduler.createObserver(Int.self)
 
         scheduler.scheduleAt(0) {
-            sut.characters()
+            sut.characters(pageRequester: .never())
                 .map { $0.count }
                 .drive(results)
                 .disposed(by: self.disposeBag)
@@ -44,8 +44,7 @@ class CharactersListViewModelTests: XCTestCase {
 
         let expected = [
             next(initialTime, 0),
-            next(initialTime + delay, 20),
-            completed(initialTime + delay) // it completes because currently there's no reload/pagination
+            next(initialTime + delay, 20)
         ]
         XCTAssertEqual(results.events, expected)
     }
@@ -58,7 +57,33 @@ class CharactersListViewModelTests: XCTestCase {
         let results = scheduler.createObserver(Int.self)
 
         scheduler.scheduleAt(0) {
-            sut.characters()
+            sut.characters(pageRequester: .never())
+                .map { $0.count }
+                .drive(results)
+                .disposed(by: self.disposeBag)
+        }
+        scheduler.start()
+
+        let expected = [
+            next(initialTime, 0)
+        ]
+        XCTAssertEqual(results.events, expected)
+    }
+
+    func testSecondPageIsAppendedWhenUserPaginates() {
+        let paginationTime = 100
+        let pageRequester = scheduler.createHotObservable([
+            next(paginationTime, ())
+            ])
+
+        let service = MarvelService(stubBehavior: .immediate(stub: .default),
+                                    scheduler: scheduler)
+        let sut = CharactersListViewModel(service: service)
+
+        let results = scheduler.createObserver(Int.self)
+
+        scheduler.scheduleAt(initialTime) {
+            sut.characters(pageRequester: pageRequester.asObservable())
                 .map { $0.count }
                 .drive(results)
                 .disposed(by: self.disposeBag)
@@ -67,7 +92,8 @@ class CharactersListViewModelTests: XCTestCase {
 
         let expected = [
             next(initialTime, 0),
-            completed(initialTime) // it completes because currently there's no reload/pagination
+            next(initialTime, 20),
+            next(paginationTime, 40)
         ]
         XCTAssertEqual(results.events, expected)
     }
