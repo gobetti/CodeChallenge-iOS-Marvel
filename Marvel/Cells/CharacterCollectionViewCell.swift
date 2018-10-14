@@ -9,13 +9,20 @@ import Foundation
 import UIKit
 
 final class CharacterCollectionViewCell: UICollectionViewCell {
+    private enum LayoutConstants {
+        static let cornerRadius: CGFloat = 8
+        static let font = UIFont.boldSystemFont(ofSize: 12)
+    }
+
     var name: String? {
         didSet {
-            nameLabel.text = name
+            nameLabel.text = name?.uppercased()
         }
     }
 
     private let nameLabel: UILabel = {
+        $0.font = LayoutConstants.font
+        $0.textAlignment = .center
         $0.textColor = ColorPalette.text
         return $0
     }(UILabel())
@@ -32,7 +39,9 @@ final class CharacterCollectionViewCell: UICollectionViewCell {
 
     private func commonInit() {
         contentView.addFullSubview(nameLabel)
-        
+
+        contentView.layer.cornerRadius = LayoutConstants.cornerRadius
+
         let backgroundColor: UIColor
         switch arc4random_uniform(3) {
         case 0:

@@ -14,7 +14,10 @@ final class CharactersListViewController: UIViewController {
         private static let spacing: CGFloat = 16
 
         static let cellAspectRatio = CGFloat(10) / CGFloat(8)
-        static let contentInset = UIEdgeInsets(top: 0, left: spacing, bottom: 0, right: spacing)
+        static let contentInset = UIEdgeInsets(top: spacing,
+                                               left: spacing,
+                                               bottom: spacing,
+                                               right: spacing)
         static let minimumInteritemSpacing = spacing
         static let minimumLineSpacing = spacing
     }
