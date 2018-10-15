@@ -46,11 +46,15 @@ struct Character: Codable, Equatable {
     }
 }
 
-struct Comic: Codable {
+struct Comic: Codable, Equatable {
     let id: Int?
     let title: String?
     let description: String?
     let thumbnail: Image?
+
+    static func == (lhs: Comic, rhs: Comic) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
 
 struct ComicList: Codable {
