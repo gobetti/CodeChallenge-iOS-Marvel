@@ -44,7 +44,7 @@ class NavigatorTests: XCTestCase {
         "id": 1017100
         }
         """
-        let decoder = CharacterDataWrapper.decoder
+        let decoder = Decoding.decoder
         return try! decoder.decode(Character.self, from: sample.data(using: .utf8)!)
     }
 }

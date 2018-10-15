@@ -10,22 +10,26 @@ import RxCocoaNetworking
 
 enum MarvelApi {
     case characters(offset: Int)
+    case comic(resourceURI: String)
 }
 
 extension MarvelApi: ProductionTargetType {
     var baseURL: URL {
-        return URL(string: "https://gateway.marvel.com:443")! // swiftlint:disable:this force_unwrapping
+        switch self {
+        case .characters:
+            return URL(string: "https://gateway.marvel.com:443")! // swiftlint:disable:this force_unwrapping
+        case .comic:
+            return URL(string: "http://gateway.marvel.com")! // swiftlint:disable:this force_unwrapping
+        }
     }
 
     var path: String {
-        let pathSuffix: String
-
         switch self {
         case .characters:
-            pathSuffix = "characters"
+            return "/v1/public/characters"
+        case .comic(let resourceURI):
+            return String(resourceURI.dropFirst(baseURL.absoluteString.count))
         }
-
-        return "/v1/public/\(pathSuffix)"
     }
 
     var task: Task {
@@ -35,11 +39,12 @@ extension MarvelApi: ProductionTargetType {
         case .characters(let offset):
             let parameters = ["offset": "\(offset)"]
             return Task(parameters: authParameters.merging(parameters) { _, new in new })
+        case .comic:
+            return Task(parameters: authParameters)
         }
     }
 
     var headers: [String: String]? {
         return nil
     }
-
 }

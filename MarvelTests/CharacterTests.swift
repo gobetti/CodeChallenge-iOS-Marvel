@@ -24,7 +24,7 @@ class CharacterTests: XCTestCase {
     """
 
     private func character(fromSample sample: String) -> Marvel.Character {
-        let decoder = CharacterDataWrapper.decoder
+        let decoder = Decoding.decoder
         return try! decoder.decode(Character.self, from: sample.data(using: .utf8)!)
     }
 

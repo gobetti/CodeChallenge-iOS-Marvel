@@ -24,6 +24,9 @@ extension MarvelApi: TargetType {
 
             let jsonFileURL = urlForJsonFile(name: jsonFileName)
             return try! Data(contentsOf: jsonFileURL)
+        case .comic:
+            let jsonFileURL = urlForJsonFile(name: "comic_sample")
+            return try! Data(contentsOf: jsonFileURL)
         }
     }
 
@@ -91,6 +94,55 @@ class MarvelApiTests: XCTestCase {
         let expected = [
             next(initialTime, 0),
             completed(initialTime)
+        ]
+
+        XCTAssertEqual(results.events, expected)
+    }
+
+    func testComicDecodingSucceeds() {
+        let service = MarvelService(stubBehavior: .immediate(stub: .default), scheduler: scheduler)
+
+        let results = scheduler.createObserver(Int.self)
+
+        scheduler.scheduleAt(initialTime) {
+            service.comic(resourceURI: "")
+                .map { $0.id! }
+                .asObservable()
+                .subscribe(results).disposed(by: self.disposeBag)
+        }
+        scheduler.start()
+
+        let expected = [
+            next(initialTime, 21366),
+            completed(initialTime)
+        ]
+
+        XCTAssertEqual(results.events, expected)
+    }
+
+    func testComicErrorsOutWhenWrapperHasNoResults() {
+        let jsonData = """
+        {
+            "data": {
+                "results": []
+            }
+        }
+        """.data(using: .utf8)!
+        let service = MarvelService(stubBehavior: .immediate(stub: .success(jsonData)),
+                                    scheduler: scheduler)
+
+        let results = scheduler.createObserver(Int.self)
+
+        scheduler.scheduleAt(initialTime) {
+            service.comic(resourceURI: "")
+                .map { $0.id! }
+                .asObservable()
+                .subscribe(results).disposed(by: self.disposeBag)
+        }
+        scheduler.start()
+
+        let expected: [Recorded<Event<Int>>] = [
+            error(initialTime, MarvelServiceError.noComic)
         ]
 
         XCTAssertEqual(results.events, expected)
