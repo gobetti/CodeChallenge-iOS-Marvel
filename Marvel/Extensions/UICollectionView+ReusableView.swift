@@ -20,6 +20,11 @@ extension UICollectionView {
     func register<Cell: UICollectionReusableView>(_ cellClass: Cell.Type) {
         register(cellClass, forCellWithReuseIdentifier: Cell.reuseIdentifier)
     }
+
+    func registerNib<Cell: UICollectionReusableView>(_ cellClass: Cell.Type) {
+        register(UINib(nibName: Cell.reuseIdentifier, bundle: nil),
+                 forCellWithReuseIdentifier: Cell.reuseIdentifier)
+    }
 }
 
 extension Reactive where Base: UICollectionView {

@@ -33,6 +33,8 @@
 		3A9AD77021739D1200AA9626 /* characters_offset20_sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A9AD76F21739D1200AA9626 /* characters_offset20_sample.json */; };
 		3A9AD7772173DE0600AA9626 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9AD7762173DE0600AA9626 /* ColorPalette.swift */; };
 		3A9AD77A2173E22200AA9626 /* GlobalAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9AD7792173E22200AA9626 /* GlobalAppearance.swift */; };
+		3A9AD7902174133B00AA9626 /* ComicCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9AD78E2174133B00AA9626 /* ComicCollectionViewCell.swift */; };
+		3A9AD7912174133B00AA9626 /* ComicCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A9AD78F2174133B00AA9626 /* ComicCollectionViewCell.xib */; };
 		3A9AD7932174173B00AA9626 /* CharacterDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9AD7922174173B00AA9626 /* CharacterDetailsViewModel.swift */; };
 		3A9AD795217421B900AA9626 /* comic_sample.json in Resources */ = {isa = PBXBuildFile; fileRef = 3A9AD794217421B900AA9626 /* comic_sample.json */; };
 		3A9AD79821742A3700AA9626 /* CharacterDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A9AD79721742A3700AA9626 /* CharacterDetailsViewModelTests.swift */; };
@@ -89,6 +91,8 @@
 		3A9AD76F21739D1200AA9626 /* characters_offset20_sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = characters_offset20_sample.json; sourceTree = "<group>"; };
 		3A9AD7762173DE0600AA9626 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
 		3A9AD7792173E22200AA9626 /* GlobalAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalAppearance.swift; sourceTree = "<group>"; };
+		3A9AD78E2174133B00AA9626 /* ComicCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicCollectionViewCell.swift; sourceTree = "<group>"; };
+		3A9AD78F2174133B00AA9626 /* ComicCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComicCollectionViewCell.xib; sourceTree = "<group>"; };
 		3A9AD7922174173B00AA9626 /* CharacterDetailsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterDetailsViewModel.swift; sourceTree = "<group>"; };
 		3A9AD794217421B900AA9626 /* comic_sample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = comic_sample.json; sourceTree = "<group>"; };
 		3A9AD79721742A3700AA9626 /* CharacterDetailsViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterDetailsViewModelTests.swift; path = MarvelTests/CharacterDetailsViewModelTests.swift; sourceTree = SOURCE_ROOT; };
@@ -232,6 +236,7 @@
 		3A9AD75621727D7000AA9626 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				3A9AD78D2174131A00AA9626 /* Comic */,
 				3A9AD75721727D7B00AA9626 /* CharacterCollectionViewCell.swift */,
 			);
 			path = Cells;
@@ -262,6 +267,15 @@
 				3A9AD7792173E22200AA9626 /* GlobalAppearance.swift */,
 			);
 			path = Appearance;
+			sourceTree = "<group>";
+		};
+		3A9AD78D2174131A00AA9626 /* Comic */ = {
+			isa = PBXGroup;
+			children = (
+				3A9AD78E2174133B00AA9626 /* ComicCollectionViewCell.swift */,
+				3A9AD78F2174133B00AA9626 /* ComicCollectionViewCell.xib */,
+			);
+			path = Comic;
 			sourceTree = "<group>";
 		};
 		F39A740144592499793B39BF /* Pods */ = {
@@ -393,6 +407,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A9AD7072171310100AA9626 /* LaunchScreen.storyboard in Resources */,
+				3A9AD7912174133B00AA9626 /* ComicCollectionViewCell.xib in Resources */,
 				3A9AD7042171310100AA9626 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -549,6 +564,7 @@
 				3A9AD73D2171947C00AA9626 /* MarvelApiAuthorization.swift in Sources */,
 				3A9AD7772173DE0600AA9626 /* ColorPalette.swift in Sources */,
 				3A9AD6FD2171310000AA9626 /* AppDelegate.swift in Sources */,
+				3A9AD7902174133B00AA9626 /* ComicCollectionViewCell.swift in Sources */,
 				3A9AD75D21727F0A00AA9626 /* UICollectionView+ReusableView.swift in Sources */,
 				3A9AD75B21727DB500AA9626 /* UIViewExtension.swift in Sources */,
 				3A9AD7412172482500AA9626 /* MarvelService.swift in Sources */,

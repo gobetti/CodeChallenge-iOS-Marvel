@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="" id="gTV-IL-0wX" customClass="ComicCollectionViewCell" customModule="Marvel" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="431" height="148"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="431" height="148"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Avengers: The Initiative (2007) #14" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLP-Vt-et5">
+                        <rect key="frame" x="0.0" y="0.0" width="431" height="31.5"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAy-Ho-NYZ">
+                        <rect key="frame" x="0.0" y="39.5" width="431" height="46.5"/>
+                        <string key="text">The fates of The Initiative, the United States, and Planet Earth hang in the balance. Plus: Former Avenger, Delroy Garret, assumes the mantle and arsenal of Earth's greatest Skrull-Hunter, The 3-D Man.</string>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="nAy-Ho-NYZ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="1SY-9z-CrD"/>
+                <constraint firstItem="KLP-Vt-et5" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="A5r-PA-sTm"/>
+                <constraint firstAttribute="trailing" secondItem="KLP-Vt-et5" secondAttribute="trailing" id="FNi-Gl-GhI"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="nAy-Ho-NYZ" secondAttribute="bottom" id="TxE-Aw-2QD"/>
+                <constraint firstItem="KLP-Vt-et5" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="bA9-9y-c9E"/>
+                <constraint firstAttribute="bottom" secondItem="nAy-Ho-NYZ" secondAttribute="bottom" priority="250" id="j5y-cF-y5C"/>
+                <constraint firstAttribute="trailing" secondItem="nAy-Ho-NYZ" secondAttribute="trailing" id="kMW-qE-e1P"/>
+                <constraint firstItem="nAy-Ho-NYZ" firstAttribute="top" secondItem="KLP-Vt-et5" secondAttribute="bottom" constant="8" id="wYz-jt-jug"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="431" height="148"/>
+            <connections>
+                <outlet property="descriptionLabel" destination="nAy-Ho-NYZ" id="BfY-yp-cSr"/>
+                <outlet property="titleLabel" destination="KLP-Vt-et5" id="mcK-BN-R8P"/>
+            </connections>
+            <point key="canvasLocation" x="-167.19999999999999" y="197.9010494752624"/>
+        </collectionViewCell>
+    </objects>
+</document>

@@ -19,7 +19,7 @@ class MarvelUITests: XCTestCase {
         app.launch()
     }
 
-    func testAnyCellIsCreated() {
+    func testAnyCellIsCreatedInListView() {
         XCTAssertTrue(anyCell.exists)
     }
 
@@ -27,7 +27,13 @@ class MarvelUITests: XCTestCase {
         let characterName = anyCell.staticTexts.firstMatch.label
         anyCell.tap()
         XCTAssertTrue(app.otherElements["detailsView"].exists)
-        XCTAssertTrue(app.staticTexts[characterName].exists)
+        XCTAssertTrue(app.navigationBars[characterName].exists)
+    }
+
+    func testAnyCellIsCreatedInDetailsView() {
+        anyCell.tap()
+        XCTAssertTrue(app.otherElements["detailsView"].exists)
+        XCTAssertTrue(anyCell.exists)
     }
 
     private var anyCell: XCUIElement {

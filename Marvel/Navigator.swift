@@ -52,35 +52,72 @@ final class Navigator {
     static func makeViewController(for destination: Destination) -> UIViewController {
         switch destination {
         case .details(let character):
-            return CharacterDetailsViewController(character: character)
-        case .list:
-            let viewModel: CharactersListViewModel
-            if CommandLine.arguments.contains("--uitesting") {
-                let sample =
-                    """
-                {
-                  "data": {
-                    "results": [
-                      {
-                        "id": 1011334,
-                        "name": "3-D Man"
-                      }
-                    ]
-                  }
-                }
-                """.data(using: .utf8)! // swiftlint:disable:this force_unwrapping
-                let service = MarvelService(stubBehavior: .immediate(stub: .success(sample)))
-                viewModel = CharactersListViewModel(service: service)
-            } else {
-                viewModel = CharactersListViewModel()
-            }
+            return CharacterDetailsViewController(character: character,
+                                                  viewModel: makeCharacterDetailsViewModel())
 
+        case .list:
             let onCharacterSelected: CharactersListViewController.OnCharacterSelected = {
                 instance.navigate(to: .details($0))
             }
 
-            return CharactersListViewController(viewModel: viewModel,
+            return CharactersListViewController(viewModel: makeCharactersListViewModel(),
                                                 onCharacterSelected: onCharacterSelected)
         }
+    }
+
+    private static func makeCharacterDetailsViewModel() -> CharacterDetailsViewModel {
+        if isUITesting {
+            let sample =
+            """
+            {
+              "data": {
+                "results": [
+                  {
+                    "id": 1011334,
+                    "title": "Avengers: The Initiative (2007) #14",
+                    "description": "The fates of The Initiative, the United States, and Planet Earth..."
+                  }
+                ]
+              }
+            }
+            """.data(using: .utf8)! // swiftlint:disable:this force_unwrapping
+            let service = MarvelService(stubBehavior: .immediate(stub: .success(sample)))
+            return CharacterDetailsViewModel(service: service)
+        } else {
+            return CharacterDetailsViewModel()
+        }
+    }
+
+    private static func makeCharactersListViewModel() -> CharactersListViewModel {
+        if isUITesting {
+            let sample =
+            """
+            {
+              "data": {
+                "results": [
+                  {
+                    "id": 1011334,
+                    "name": "3-D Man",
+                    "comics": {
+                      "items": [
+                        {
+                          "resourceURI": "http://gateway.marvel.com/v1/public/comics/40632"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+            """.data(using: .utf8)! // swiftlint:disable:this force_unwrapping
+            let service = MarvelService(stubBehavior: .immediate(stub: .success(sample)))
+            return CharactersListViewModel(service: service)
+        } else {
+            return CharactersListViewModel()
+        }
+    }
+
+    private static var isUITesting: Bool {
+        return CommandLine.arguments.contains("--uitesting")
     }
 }
