@@ -29,3 +29,15 @@ With that in mind, this repository is set up with [codecov](https://codecov.io),
 IMHO, the best way to stay productive _and_ testable is to add only essential tests at first, considering the "happy path" and any other obviously possible paths that come to mind, leaving edge cases to be added once a bug is actually found or whenever a code reviewer suggests something new.
 
 Finally, I like tests as a replacement for embedded documentation. If this were a project following BDD, with technical specifications written in that format by the QA team before reaching the development team, [Quick+Nimble](https://github.com/Quick/Nimble) would be a great fit. I ended up not using it because it [integrates with RxBlocking](https://github.com/RxSwiftCommunity/RxNimble) rather than [RxTest](https://github.com/gobetti/CocoaHeads-RxTest), and as of today, I consider the later to be far superior for testing Rx code.
+
+## 🚧 WIP
+
+This project is still a big work in progress. Crucial details have been left behind, especially from a UI/UX perspective, for example:
+
+- No loading indicators
+- No animations
+- No images
+
+Please feel free to check [this other similar repository](https://github.com/gobetti/CodeChallenge-iOS-TMDB) where I've invested a little time on the items above, but don't expect anything fancy 😬
+
+My main concern today with the code itself is [the existence of test code in the production target](https://github.com/gobetti/CodeChallenge-iOS-Marvel/blob/master/Marvel/Navigator.swift), which was done in order to allow network-free UI tests. One of the goals of `RxCocoaNetworking` was to keep `Moya`'s ease of testing while allowing to keep test code out of the production target - that strategy works for unit tests but not for UI tests because we can't add any code there.
