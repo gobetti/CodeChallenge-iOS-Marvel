@@ -36,6 +36,14 @@ class MarvelUITests: XCTestCase {
         XCTAssertTrue(anyCell.exists)
     }
 
+    func testCellSizeChangesAfterRotation() {
+        XCUIDevice.shared.orientation = .portrait
+        let cellWidthOnPortrait = anyCell.frame.size.width
+
+        XCUIDevice.shared.orientation = .landscapeRight
+        XCTAssertNotEqual(anyCell.frame.size.width, cellWidthOnPortrait)
+    }
+
     private var anyCell: XCUIElement {
         return app.collectionViews.cells.firstMatch
     }

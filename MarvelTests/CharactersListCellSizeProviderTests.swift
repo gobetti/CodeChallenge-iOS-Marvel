@@ -10,6 +10,7 @@ import XCTest
 
 class CharactersListCellSizeProviderTests: XCTestCase {
     var sut: CharactersListCellSizeProvider!
+    var collectionView: UICollectionView!
 
     func testCellSizeRespectsCollectionViewSpacings() {
         let contentInset = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 40)
@@ -62,18 +63,42 @@ class CharactersListCellSizeProviderTests: XCTestCase {
         XCTAssertEqual(computeSize(), computeSize())
     }
 
+    func testCellSizeIsDifferentAfterFrameChange() {
+        let contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 30)
+        let minimumInteritemSpacing: CGFloat = 36
+        let cellAspectRatio = CGFloat(16) / CGFloat(9)
+
+        let frame1 = CGRect(x: 0, y: 0, width: 900, height: 500)
+        let size1 = size(frame: frame1,
+                         contentInset: contentInset,
+                         minimumInteritemSpacing: minimumInteritemSpacing,
+                         cellAspectRatio: cellAspectRatio)
+
+        sut.invalidate()
+
+        let frame2 = CGRect(x: 0, y: 0, width: 500, height: 900)
+        let size2 = size(frame: frame2,
+                         contentInset: contentInset,
+                         minimumInteritemSpacing: minimumInteritemSpacing,
+                         cellAspectRatio: cellAspectRatio)
+
+        XCTAssertNotEqual(size1, size2)
+    }
+
     private func size(frame: CGRect,
                       contentInset: UIEdgeInsets,
                       minimumInteritemSpacing: CGFloat,
                       cellAspectRatio: CGFloat) -> CGSize {
         if sut == nil {
             let layout = UICollectionViewFlowLayout()
-            let collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
+            collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
             collectionView.contentInset = contentInset
 
             sut = CharactersListCellSizeProvider(collectionView: collectionView,
                                                  minimumInteritemSpacing: minimumInteritemSpacing,
                                                  cellAspectRatio: cellAspectRatio)
+        } else {
+            collectionView.frame = frame
         }
         
         return sut.size()

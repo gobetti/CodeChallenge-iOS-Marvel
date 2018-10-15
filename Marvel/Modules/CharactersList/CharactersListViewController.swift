@@ -76,6 +76,11 @@ final class CharactersListViewController: UIViewController {
                 cell.name = character.name
             }.disposed(by: disposeBag)
     }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        cellSizeProvider.invalidate()
+    }
 }
 
 extension CharactersListViewController: UICollectionViewDelegateFlowLayout {

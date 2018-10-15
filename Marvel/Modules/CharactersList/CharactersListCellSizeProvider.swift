@@ -23,6 +23,10 @@ final class CharactersListCellSizeProvider {
         self.cellAspectRatio = cellAspectRatio
     }
 
+    func invalidate() {
+        cellSize = nil
+    }
+
     func size() -> CGSize {
         if let size = cellSize {
             return size
