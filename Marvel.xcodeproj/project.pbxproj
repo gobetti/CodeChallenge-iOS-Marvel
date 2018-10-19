@@ -130,6 +130,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A0133192179BD0B00984B2F /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				3A9AD76721728E0C00AA9626 /* Navigator.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
 		3A9AD6F02171310000AA9626 = {
 			isa = PBXGroup;
 			children = (
@@ -160,8 +168,8 @@
 				3A9AD75621727D7000AA9626 /* Cells */,
 				3A9AD75921727DAB00AA9626 /* Extensions */,
 				3A9AD75221727C4100AA9626 /* Modules */,
+				3A0133192179BD0B00984B2F /* Navigation */,
 				3A9AD6FC2171310000AA9626 /* AppDelegate.swift */,
-				3A9AD76721728E0C00AA9626 /* Navigator.swift */,
 				3A9AD7032171310100AA9626 /* Assets.xcassets */,
 				3A9AD7052171310100AA9626 /* LaunchScreen.storyboard */,
 				3A9AD7082171310100AA9626 /* Info.plist */,
