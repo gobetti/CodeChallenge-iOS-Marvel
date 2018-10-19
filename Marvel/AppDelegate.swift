@@ -12,7 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
-    private var navigator: Navigator?
+    private var navigator: Navigator!
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -21,7 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let window = UIWindow(frame: UIScreen.main.bounds)
         self.window = window
 
-        navigator = Navigator(rootDestination: .list, window: window)
+        let rootDestination = ViewControllerFactory.list({ self.navigator })
+        navigator = Navigator(rootDestination: rootDestination, window: window)
         window.makeKeyAndVisible()
 
         return true
