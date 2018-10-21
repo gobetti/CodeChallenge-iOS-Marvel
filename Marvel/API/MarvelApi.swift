@@ -16,10 +16,15 @@ enum MarvelApi {
 extension MarvelApi: ProductionTargetType {
     var baseURL: URL {
         switch self {
-        case .characters:
+        case .comic(let resourceURI):
+            if let path = URL(string: resourceURI)?.path,
+                let baseURL = URL(string: resourceURI.replacingOccurrences(of: path, with: "")) {
+                return baseURL
+            } else {
+                fallthrough
+            }
+        default:
             return URL(string: "https://gateway.marvel.com:443")! // swiftlint:disable:this force_unwrapping
-        case .comic:
-            return URL(string: "http://gateway.marvel.com")! // swiftlint:disable:this force_unwrapping
         }
     }
 
@@ -28,7 +33,7 @@ extension MarvelApi: ProductionTargetType {
         case .characters:
             return "/v1/public/characters"
         case .comic(let resourceURI):
-            return String(resourceURI.dropFirst(baseURL.absoluteString.count))
+            return URL(string: resourceURI)?.path ?? ""
         }
     }
 
