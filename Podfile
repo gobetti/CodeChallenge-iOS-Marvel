@@ -8,6 +8,7 @@ target 'Marvel' do
 
   target 'MarvelTests' do
     inherit! :search_paths
-    pod 'RxTest'
+    pod 'Quick'
+    pod 'RxNimble/RxTest', :git => 'https://github.com/gobetti/RxNimble.git', :branch => 'rxtest-support'
   end
 end

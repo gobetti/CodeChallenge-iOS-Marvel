@@ -5,72 +5,57 @@
 //  Created by Marcelo Gobetti on 13/10/18.
 //
 
+import Quick
+import Nimble
 import RxCocoaNetworking
+import RxNimble
 import RxSwift
 import RxTest
-import XCTest
 @testable import Marvel
 
 enum SomeError: Error {
     case error
 }
 
-class CharactersListViewModelTests: XCTestCase {
+class CharactersListViewModelSpec: QuickSpec {
+override func spec() {
+describe("Characters") {
+    let initialTime = 0
     var disposeBag: DisposeBag!
     var scheduler: TestScheduler!
-    let initialTime = 0
 
-    override func setUp() {
-        super.setUp()
+    beforeEach {
         disposeBag = DisposeBag()
         scheduler = TestScheduler(initialClock: initialTime, simulateProcessingDelay: false)
     }
 
-    func testCharactersStartsEmptyThenLoads() {
+    it("starts empty then loads") {
         let delay = 10
         let service = MarvelService(stubBehavior: .delayed(time: TimeInterval(delay), stub: .default),
                                     scheduler: scheduler)
         let sut = CharactersListViewModel(service: service)
 
-        let results = scheduler.createObserver(Int.self)
-
-        scheduler.scheduleAt(0) {
-            sut.characters(pageRequester: .never())
-                .map { $0.count }
-                .drive(results)
-                .disposed(by: self.disposeBag)
-        }
-        scheduler.start()
-
-        let expected = [
-            next(initialTime, 0),
-            next(initialTime + delay, 20)
-        ]
-        XCTAssertEqual(results.events, expected)
+        expect(sut.characters(pageRequester: .never()).map { $0.count }.asObservable())
+            .events(scheduler: scheduler, disposeBag: disposeBag)
+            .to(equal([
+                Recorded.next(initialTime, 0),
+                Recorded.next(initialTime + delay, 20)
+                ]))
     }
 
-    func testCharactersDoesNotErrorOutIfServiceResponseFails() {
+    it("does not error out if service response fails") {
         let service = MarvelService(stubBehavior: .immediate(stub: .error(SomeError.error)),
                                     scheduler: scheduler)
         let sut = CharactersListViewModel(service: service)
 
-        let results = scheduler.createObserver(Int.self)
-
-        scheduler.scheduleAt(0) {
-            sut.characters(pageRequester: .never())
-                .map { $0.count }
-                .drive(results)
-                .disposed(by: self.disposeBag)
-        }
-        scheduler.start()
-
-        let expected = [
-            next(initialTime, 0)
-        ]
-        XCTAssertEqual(results.events, expected)
+        expect(sut.characters(pageRequester: .never()).map { $0.count }.asObservable())
+            .events(scheduler: scheduler, disposeBag: disposeBag)
+            .to(equal([
+                Recorded.next(initialTime, 0)
+                ]))
     }
 
-    func testSecondPageIsAppendedWhenUserPaginates() {
+    it("appends second page when user paginates") {
         let paginationTime = 100
         let pageRequester = scheduler.createHotObservable([
             next(paginationTime, ())
@@ -80,25 +65,16 @@ class CharactersListViewModelTests: XCTestCase {
                                     scheduler: scheduler)
         let sut = CharactersListViewModel(service: service)
 
-        let results = scheduler.createObserver(Int.self)
-
-        scheduler.scheduleAt(initialTime) {
-            sut.characters(pageRequester: pageRequester.asObservable())
-                .map { $0.count }
-                .drive(results)
-                .disposed(by: self.disposeBag)
-        }
-        scheduler.start()
-
-        let expected = [
-            next(initialTime, 0),
-            next(initialTime, 20),
-            next(paginationTime, 40)
-        ]
-        XCTAssertEqual(results.events, expected)
+        expect(sut.characters(pageRequester: pageRequester.asObservable()).map { $0.count }.asObservable())
+            .events(scheduler: scheduler, disposeBag: disposeBag)
+            .to(equal([
+                Recorded.next(initialTime, 0),
+                Recorded.next(initialTime, 20),
+                Recorded.next(paginationTime, 40)
+                ]))
     }
 
-    func testSinglePageIsReturnedForQuickMultiplePaginationRequests() {
+    it("returns a single page for quick multiple pagination requests") {
         let paginationTime = 100
         let paginationQuickRequestInterval = 1
         let pageRequester = scheduler.createHotObservable([
@@ -114,21 +90,14 @@ class CharactersListViewModelTests: XCTestCase {
                                     scheduler: scheduler)
         let sut = CharactersListViewModel(service: service)
 
-        let results = scheduler.createObserver(Int.self)
-
-        scheduler.scheduleAt(initialTime) {
-            sut.characters(pageRequester: pageRequester.asObservable())
-                .map { $0.count }
-                .drive(results)
-                .disposed(by: self.disposeBag)
-        }
-        scheduler.start()
-
-        let expected = [
-            next(initialTime, 0),
-            next(initialTime + delay, 20),
-            next(paginationTime + delay, 40)
-        ]
-        XCTAssertEqual(results.events, expected)
+        expect(sut.characters(pageRequester: pageRequester.asObservable()).map { $0.count }.asObservable())
+            .events(scheduler: scheduler, disposeBag: disposeBag)
+            .to(equal([
+                Recorded.next(initialTime, 0),
+                Recorded.next(initialTime + delay, 20),
+                Recorded.next(paginationTime + delay, 40)
+                ]))
     }
+}
+}
 }

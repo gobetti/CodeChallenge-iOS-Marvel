@@ -5,10 +5,12 @@
 //  Created by Marcelo Gobetti on 12/10/18.
 //
 
+import Quick
+import Nimble
 import RxCocoaNetworking
+import RxNimble
 import RxSwift
 import RxTest
-import XCTest
 @testable import Marvel
 
 extension MarvelApi: TargetType {
@@ -31,44 +33,35 @@ extension MarvelApi: TargetType {
     }
 
     private func urlForJsonFile(name: String) -> URL {
-        let bundle = Bundle(for: MarvelApiTests.self)
+        let bundle = Bundle(for: MarvelApiSpec.self)
         return bundle.url(forResource: name, withExtension: "json")!
     }
 }
 
-class MarvelApiTests: XCTestCase {
+class MarvelApiSpec: QuickSpec {
+override func spec() {
+describe("Characters") {
+    let initialTime = 0
     var disposeBag: DisposeBag!
     var scheduler: TestScheduler!
-    let initialTime = 0
 
-    override func setUp() {
-        super.setUp()
+    beforeEach {
         disposeBag = DisposeBag()
         scheduler = TestScheduler(initialClock: initialTime, simulateProcessingDelay: false)
     }
 
-    func testCharactersDecodingSucceeds() {
+    it("decodes successfully") {
         let service = MarvelService(stubBehavior: .immediate(stub: .default), scheduler: scheduler)
-        
-        let results = scheduler.createObserver(Int.self)
-        
-        scheduler.scheduleAt(initialTime) {
-            service.characters()
-                .map { $0.count }
-                .asObservable()
-                .subscribe(results).disposed(by: self.disposeBag)
-        }
-        scheduler.start()
 
-        let expected = [
-            next(initialTime, 20),
-            completed(initialTime)
-        ]
-
-        XCTAssertEqual(results.events, expected)
+        expect(service.characters().map { $0.count }.asObservable())
+            .events(scheduler: scheduler, disposeBag: disposeBag)
+            .to(equal([
+                Recorded.next(initialTime, 20),
+                Recorded.completed(initialTime)
+                ]))
     }
 
-    func testEmptyCharactersWhenWrapperMissesData() {
+    it("is empty when wrapper misses data") {
         let jsonData = """
         {
           "code": 200,
@@ -81,46 +74,26 @@ class MarvelApiTests: XCTestCase {
         """.data(using: .utf8)!
         let service = MarvelService(stubBehavior: .immediate(stub: .success(jsonData)), scheduler: scheduler)
 
-        let results = scheduler.createObserver(Int.self)
+        expect(service.characters().map { $0.count }.asObservable())
+            .events(scheduler: scheduler, disposeBag: disposeBag)
+            .to(equal([
+                Recorded.next(initialTime, 00),
+                Recorded.completed(initialTime)
+                ]))
+    }
+}
 
-        scheduler.scheduleAt(initialTime) {
-            service.characters()
-                .map { $0.count }
-                .asObservable()
-                .subscribe(results).disposed(by: self.disposeBag)
-        }
-        scheduler.start()
+describe("Comic") {
+    let initialTime = 0
+    var disposeBag: DisposeBag!
+    var scheduler: TestScheduler!
 
-        let expected = [
-            next(initialTime, 0),
-            completed(initialTime)
-        ]
-
-        XCTAssertEqual(results.events, expected)
+    beforeEach {
+        disposeBag = DisposeBag()
+        scheduler = TestScheduler(initialClock: initialTime, simulateProcessingDelay: false)
     }
 
-    func testComicDecodingSucceeds() {
-        let service = MarvelService(stubBehavior: .immediate(stub: .default), scheduler: scheduler)
-
-        let results = scheduler.createObserver(Int.self)
-
-        scheduler.scheduleAt(initialTime) {
-            service.comic(resourceURI: "")
-                .map { $0.id! }
-                .asObservable()
-                .subscribe(results).disposed(by: self.disposeBag)
-        }
-        scheduler.start()
-
-        let expected = [
-            next(initialTime, 21366),
-            completed(initialTime)
-        ]
-
-        XCTAssertEqual(results.events, expected)
-    }
-
-    func testComicErrorsOutWhenWrapperHasNoResults() {
+    it("errors out when wrapper has no results") {
         let jsonData = """
         {
             "data": {
@@ -131,20 +104,12 @@ class MarvelApiTests: XCTestCase {
         let service = MarvelService(stubBehavior: .immediate(stub: .success(jsonData)),
                                     scheduler: scheduler)
 
-        let results = scheduler.createObserver(Int.self)
-
-        scheduler.scheduleAt(initialTime) {
-            service.comic(resourceURI: "")
-                .map { $0.id! }
-                .asObservable()
-                .subscribe(results).disposed(by: self.disposeBag)
-        }
-        scheduler.start()
-
-        let expected: [Recorded<Event<Int>>] = [
-            error(initialTime, MarvelServiceError.noComic)
-        ]
-
-        XCTAssertEqual(results.events, expected)
+        expect(service.comic(resourceURI: "").map { $0.id! }.asObservable())
+            .events(scheduler: scheduler, disposeBag: disposeBag)
+            .to(equal([
+                Recorded.error(initialTime, MarvelServiceError.noComic)
+                ]))
     }
+}
+}
 }

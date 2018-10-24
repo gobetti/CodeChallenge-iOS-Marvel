@@ -28,7 +28,7 @@ With that in mind, this repository is set up with [codecov](https://codecov.io),
 
 IMHO, the best way to stay productive _and_ testable is to add only essential tests at first, considering the "happy path" and any other obviously possible paths that come to mind, leaving edge cases to be added once a bug is actually found or whenever a code reviewer suggests something new.
 
-Finally, I like tests as a replacement for embedded documentation. If this were a project following BDD, with technical specifications written in that format by the QA team before reaching the development team, [Quick+Nimble](https://github.com/Quick/Nimble) would be a great fit. I ended up not using it because it [integrates with RxBlocking](https://github.com/RxSwiftCommunity/RxNimble) rather than [RxTest](https://github.com/gobetti/CocoaHeads-RxTest), and as of today, I consider the later to be far superior for testing Rx code.
+Finally, I like tests as a replacement for embedded documentation. If this were a project following BDD, with technical specifications written in that format by the QA team before reaching the development team, [Quick+Nimble](https://github.com/Quick/Nimble) would be a great fit. Originally in this project I didn't use it because [RxNimble integrated with RxBlocking](https://github.com/RxSwiftCommunity/RxNimble) rather than [RxTest](https://github.com/gobetti/CocoaHeads-RxTest) - which I consider to be far superior for testing Rx code - but now [it does integrate](https://github.com/RxSwiftCommunity/RxNimble/pull/35) so we can hang out with the cool kids!
 
 ## 🚧 WIP
 

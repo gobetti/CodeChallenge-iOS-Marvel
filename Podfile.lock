@@ -1,4 +1,6 @@
 PODS:
+  - Nimble (7.3.1)
+  - Quick (1.3.2)
   - RxCocoa (4.3.1):
     - RxSwift (~> 4.0)
   - RxCocoaNetworking (0.2.2):
@@ -6,6 +8,12 @@ PODS:
     - RxCocoaNetworking/Core (= 0.2.2)
   - RxCocoaNetworking/Core (0.2.2):
     - RxCocoa (~> 4.3)
+  - RxNimble/Core (4.4.0):
+    - Nimble (~> 7.0)
+    - RxSwift (~> 4.2)
+  - RxNimble/RxTest (4.4.0):
+    - RxNimble/Core
+    - RxTest
   - RxSwift (4.3.1)
   - RxTest (4.3.1):
     - RxSwift (~> 4.0)
@@ -13,13 +21,16 @@ PODS:
   - SwiftLint (0.27.0)
 
 DEPENDENCIES:
+  - Quick
   - RxCocoaNetworking
-  - RxTest
+  - "RxNimble/RxTest (from `git@github.com:gobetti/RxNimble.git`, branch `rxtest-support`)"
   - SwiftHash
   - SwiftLint
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Nimble
+    - Quick
     - RxCocoa
     - RxCocoaNetworking
     - RxSwift
@@ -27,14 +38,27 @@ SPEC REPOS:
     - SwiftHash
     - SwiftLint
 
+EXTERNAL SOURCES:
+  RxNimble:
+    :branch: rxtest-support
+    :git: "git@github.com:gobetti/RxNimble.git"
+
+CHECKOUT OPTIONS:
+  RxNimble:
+    :commit: 8cea8497d92b5e11827159c254ad9284100a8e52
+    :git: "git@github.com:gobetti/RxNimble.git"
+
 SPEC CHECKSUMS:
+  Nimble: 04f732da099ea4d153122aec8c2a88fd0c7219ae
+  Quick: 2623cb30d7a7f41ca62f684f679586558f483d46
   RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
   RxCocoaNetworking: 9050c080ec4946faa0da9740fe8b445c53c7a16f
+  RxNimble: 86df28c7476fefe27d019acaf7bee473b970f864
   RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
   RxTest: ea97a208826906f3904c0debdd09575ebcbfe216
   SwiftHash: 6d312abe61c8359bdef8d0093642f3a70b1c17ba
   SwiftLint: 3207c1faa2240bf8973b191820a116113cd11073
 
-PODFILE CHECKSUM: 17c1d00b1cb1fa950546b48408c6d8f639f6c4d0
+PODFILE CHECKSUM: f38e458e0b8a640f9edc8a082fdb2972c0ad021a
 
 COCOAPODS: 1.5.3
